@@ -116,6 +116,11 @@ export default function SigninPage() {
               Signin
             </Button>
           </Grid>
+          {error ? (
+            <Grid item style={{ color: "red" }}>
+              {error}
+            </Grid>
+          ) : null}
           <Grid item>
             {" "}
             <a href={"/signup"}>Still don't have an account? Register now</a>

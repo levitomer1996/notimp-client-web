@@ -6,6 +6,7 @@ import { Grid } from "@material-ui/core";
 import { AuthProvider } from "./context/AuthContext";
 import { ModalProvider } from "./context/ModalContext";
 import GeneralModal from "./components/Modal/GeneralModal";
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   const [isFireBaseInitialzied, setIsFireBaseInitialzied] = useState(false);
@@ -24,15 +25,17 @@ function App() {
     setIsFireBaseInitialzied(true);
   }, []);
   return (
-    <AuthProvider>
-      <ModalProvider>
-        <Grid>
-          <GeneralModal />
-          <Header isFireBaseInitialzied={isFireBaseInitialzied} />
-          <Main />
-        </Grid>
-      </ModalProvider>
-    </AuthProvider>
+    <Router>
+      <AuthProvider>
+        <ModalProvider>
+          <Grid>
+            <GeneralModal />
+            <Header isFireBaseInitialzied={isFireBaseInitialzied} />
+            <Main />
+          </Grid>
+        </ModalProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 

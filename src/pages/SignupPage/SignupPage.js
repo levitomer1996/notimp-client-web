@@ -5,6 +5,7 @@ import { useStyles } from "./Comps/SigninStyle";
 import firebase from "firebase";
 import useSignupFormValidation from "./Comps/useSignupFormValidation";
 import notimp from "../../api/notimp";
+import { Redirect } from "react-router-dom";
 const SignupPage = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
@@ -14,7 +15,8 @@ const SignupPage = () => {
   const [lastName, setLastName] = useState("");
   const [error, setError] = useState(null);
   const [spinner, setSpinner] = useState(false);
-  const [reidrect, setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+
   const [isValid, validateForm] = useSignupFormValidation();
   useEffect(() => {
     validateForm(email, password, confirmPassword);
@@ -38,6 +40,7 @@ const SignupPage = () => {
             });
             console.log("Registered to nestjs server");
           });
+        setRedirect(true);
       })
       .catch((err) => {
         setError(`Something wen't wrong`);
@@ -60,6 +63,7 @@ const SignupPage = () => {
         spacing={3}
         style={{ marginTop: 10, flex: 1 }}
       >
+        {redirect ? <Redirect to="/" /> : null}
         <Grid item>
           <BootStrapInput
             label="E-mail"

@@ -31,7 +31,7 @@ const FoundAsset = ({ list, spinner }) => {
       >
         {list.map((item) => {
           return (
-            <a href={`asset/${item._id}`} className={classes.link}>
+            <a href={`/asset/${item._id}`} className={classes.link}>
               <Grid item className={classes.foundAsset}>
                 {item.title}
               </Grid>

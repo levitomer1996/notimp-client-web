@@ -45,5 +45,9 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
     flexDirection: "row",
   },
+  rating_cotainer: {
+    display: "flex",
+    flexDirection: "column",
+  },
 }));
 export default useStyles;

@@ -5,7 +5,7 @@ import { baseUrl } from "../../../api/notimp";
 
 export default function ParallexImage() {
   const props = {
-    image_url: `https://i.ibb.co/7KZX0R2/IMG-20210123-145536.jpg`,
+    image_url: `https://i.ibb.co/yyByKTG/IMG-20210128-162604-01.jpg`,
   };
   const classes = useStyles(props);
   return (

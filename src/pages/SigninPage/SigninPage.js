@@ -10,6 +10,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 import AuthContext from "../../context/AuthContext";
 import { Redirect } from "react-router-dom";
+import notimp from "../../api/notimp";
 
 var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -21,18 +22,22 @@ export default function SigninPage() {
   const [error, setError] = useState(null);
   const [spinner, setSpinner] = useState(false);
 
-  function googleSignInPopup(provider) {
+  async function googleSignInPopup(provider) {
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then((result) => {
+      .then(async (result) => {
         /** @type {firebase.auth.OAuthCredential} */
-        var credential = result.credential;
-
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = credential.accessToken;
-
         var user = result.user;
+        try {
+          const res = await notimp.post("auth/signin", {
+            uid: user.uid,
+            signin_type: "GOOGLE_SIGNIN",
+          });
+          localStorage.setItem("ut", res.data);
+        } catch (er) {
+          console.log(er);
+        }
         Signin(user);
         // ...
       })

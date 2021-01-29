@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Avatar from "@material-ui/core/Avatar";
 import firebase from "firebase";
+import AuthContext from "../../../context/AuthContext";
 export default function AvatarMenu({ img_url, displayName }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const { Signout } = useContext(AuthContext);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -42,7 +43,10 @@ export default function AvatarMenu({ img_url, displayName }) {
             firebase
               .auth()
               .signOut()
-              .then((res) => console.log(res));
+              .then((res) => {
+                Signout();
+                handleClose();
+              });
           }}
         >
           Logout

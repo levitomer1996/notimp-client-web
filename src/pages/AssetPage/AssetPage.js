@@ -7,26 +7,35 @@ import Avatar from "@material-ui/core/Avatar";
 import imgURL from "../../components/imgURL";
 import useStyles from "./Comps/AssetPage.style";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import RatingStars from "./Comps/Rating";
 import AssetProperties from "./Comps/AssetProperties";
+import GoogleMap from "../../components/GoogleMap/GoogleMap";
 const AssetPage = () => {
   const classes = useStyles();
   const { id } = useParams();
   const [getAssetDetails, asset, spinner] = useGetAsset();
+
   useEffect(() => {
     getAssetDetails(id);
     console.log(asset);
   }, []);
   const {
+    _id,
     owner,
     description,
     price,
     user_photo,
+    location,
     title,
     isBalcony,
     isAirConditioned,
     isPets,
     isFurnished,
+    rate,
   } = asset;
+  useEffect(() => {
+    console.log(location);
+  }, [location]);
   if (spinner) {
     return (
       <div className={classes.spinner_container}>
@@ -74,6 +83,14 @@ const AssetPage = () => {
               isPets={isPets}
               isFurnished={isFurnished}
             />
+          </Grid>
+          <Grid item>
+            <RatingStars rates={rate} assetId={_id} />
+          </Grid>
+          <Grid item>
+            {location ? (
+              <GoogleMap coords={location} assetList={[location]} />
+            ) : null}
           </Grid>
         </Grid>
       </div>

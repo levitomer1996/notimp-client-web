@@ -25,6 +25,7 @@ import AvatarMenu from "./Comps/AvatarMenu";
 import useSearchAsset from "../../hooks/useSearchAsset";
 import { Redirect } from "react-router-dom";
 import useStyles from "./Comps/Header.style";
+import useGetUserMail from "../../hooks/useGetUserMail";
 
 export default function Header({ isFireBaseInitialzied }) {
   const classes = useStyles();
@@ -33,12 +34,15 @@ export default function Header({ isFireBaseInitialzied }) {
   const { Signin, authState, Signout } = useContext(AuthContext);
   const [foundAssets, searchAsset, spinner] = useSearchAsset();
   const [redirect, setRedirect] = useState({ isRedirect: false, path: null });
+  const [getUserMail, mailSpinner] = useGetUserMail();
   useEffect(() => {
     if (isFireBaseInitialzied) {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           console.log(user);
           Signin(user);
+          getUserMail();
+          console.log(authState.mail);
         } else {
         }
       });
@@ -171,8 +175,16 @@ export default function Header({ isFireBaseInitialzied }) {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
+            <IconButton
+              aria-label="show 4 new mails"
+              color="inherit"
+              onClick={
+                authState.isLogged
+                  ? () => setRedirect({ path: "/account", isRedirect: true })
+                  : null
+              }
+            >
+              <Badge badgeContent={authState.mail.length} color="secondary">
                 <MailIcon />
               </Badge>
             </IconButton>

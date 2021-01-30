@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Grid, Typography } from "@material-ui/core";
+import React, { useEffect, useContext } from "react";
+import { Button, Grid, Typography } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import useGetAsset from "../../hooks/useGetAsset";
@@ -10,10 +10,12 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import RatingStars from "./Comps/Rating";
 import AssetProperties from "./Comps/AssetProperties";
 import GoogleMap from "../../components/GoogleMap/GoogleMap";
+import ModalContext from "../../context/ModalContext";
 const AssetPage = () => {
   const classes = useStyles();
   const { id } = useParams();
   const [getAssetDetails, asset, spinner] = useGetAsset();
+  const { setIsModalOpen } = useContext(ModalContext);
 
   useEffect(() => {
     getAssetDetails(id);
@@ -24,6 +26,7 @@ const AssetPage = () => {
     owner,
     description,
     price,
+    uid,
     user_photo,
     location,
     title,
@@ -57,8 +60,18 @@ const AssetPage = () => {
             <Avatar
               alt="Remy Sharp"
               src={user_photo}
-              style={{ height: 100, width: 100 }}
+              style={{ height: 100, width: 100, marginBottom: 10 }}
             />
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ backgroundColor: "orange" }}
+              onClick={() => {
+                setIsModalOpen("contact_user", { reciver: uid, owner });
+              }}
+            >
+              Contact owner
+            </Button>
           </div>
         </div>
         <Grid

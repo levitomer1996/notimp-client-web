@@ -9,21 +9,10 @@ import ContentHandler from "./Comps/ContentHandler";
 import ShareModal from "./Comps/ShareModal";
 export default function GeneralModal({ type }) {
   const { modalState, setIsModalOpen } = useContext(ModalContext);
-  const { isOpen, content } = modalState;
+  const { isOpen, content, params } = modalState;
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
-
-  const body = (
-    <div style={modalStyle} className={classes.paper}>
-      <div className={classes.close_btn_container}>
-        <IconButton onClick={setIsModalOpen}>
-          <CloseIcon />
-        </IconButton>
-      </div>
-      <ShareModal />
-    </div>
-  );
 
   return (
     <div>
@@ -33,7 +22,14 @@ export default function GeneralModal({ type }) {
         aria-describedby="simple-modal-description"
         onClose={setIsModalOpen}
       >
-        {body}
+        <div style={modalStyle} className={classes.paper}>
+          <div className={classes.close_btn_container}>
+            <IconButton onClick={setIsModalOpen}>
+              <CloseIcon />
+            </IconButton>
+          </div>
+          <ContentHandler content={content} params={params} />
+        </div>
       </Modal>
     </div>
   );

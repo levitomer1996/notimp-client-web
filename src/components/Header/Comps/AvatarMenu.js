@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Avatar from "@material-ui/core/Avatar";
 import firebase from "firebase";
 import AuthContext from "../../../context/AuthContext";
+import { Redirect } from "react-router-dom";
 export default function AvatarMenu({ img_url, displayName }) {
+  const [redirect, setRedirect] = useState({ isRedirect: false, path: null });
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { Signout } = useContext(AuthContext);
   const handleClick = (event) => {
@@ -26,6 +29,7 @@ export default function AvatarMenu({ img_url, displayName }) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        {redirect.redirect ? <Redirect to={redirect.path} /> : null}
         <MenuItem onClick={handleClose}>
           <a href="/profile" style={{ textDecoration: "none", color: "black" }}>
             Profle
@@ -33,6 +37,7 @@ export default function AvatarMenu({ img_url, displayName }) {
         </MenuItem>
         <MenuItem
           onClick={() => {
+            setRedirect({ path: "/account", redirect: true });
             handleClose();
           }}
         >

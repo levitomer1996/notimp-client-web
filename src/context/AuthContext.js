@@ -7,26 +7,33 @@ const AuthReducer = (state, action) => {
       return { ...state, isLogged: true, user: action.payload };
     case "signout":
       return { ...state, isLogged: false, user: {} };
-
+    case "set_mail":
+      return { ...state, mail: action.payload };
     default:
       break;
   }
 };
 
 export const AuthProvider = ({ children }) => {
-  const [authState, dispatch] = useReducer(AuthReducer, {
+  //d = dispatch
+  const [authState, d] = useReducer(AuthReducer, {
     isLogged: false,
     user: {},
-    isModalOpen: false,
+    mail: [],
   });
-
+  const dispatch = (type, payload) => {
+    d({ type, payload });
+  };
   const Signin = (data) => {
-    dispatch({ type: "signin", payload: data });
+    dispatch("signin", data);
     return;
   };
   const Signout = () => {
-    dispatch({ type: "signout" });
+    dispatch("signout");
     return;
+  };
+  const setMail = (data) => {
+    dispatch("set_mail", data);
   };
 
   return (
@@ -35,6 +42,7 @@ export const AuthProvider = ({ children }) => {
         authState,
         Signin,
         Signout,
+        setMail,
       }}
     >
       {children}

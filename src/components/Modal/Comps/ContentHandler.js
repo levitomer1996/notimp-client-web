@@ -1,13 +1,14 @@
 import React from "react";
+import ContactUser from "./ContactUser";
 import ShareModal from "./ShareModal";
 
-export default function ContentHandler({ content }) {
-  
+export default function ContentHandler({ content, params }) {
   switch (content) {
     case "share":
-      return <ShareModal />;
-
+      return <ShareModal params={params} />;
+    case "contact_user":
+      return <ContactUser params={params} />;
     default:
-      break;
+      <div>Nothing to render</div>;
   }
 }

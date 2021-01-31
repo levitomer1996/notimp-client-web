@@ -11,7 +11,6 @@ export default () => {
       setSpinner(true);
       const res = await notimp.get("mail/usermail", {
         headers: {
-          //IsTokenExist = token.
           Authorization: `Bearer ${getToken()}`,
         },
       });

@@ -15,7 +15,7 @@ import notimp from "../../api/notimp";
 var provider = new firebase.auth.GoogleAuthProvider();
 
 export default function SigninPage() {
-  const { Signin, authState } = useContext(AuthContext);
+  const { Signin, authState, Signout } = useContext(AuthContext);
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -60,8 +60,17 @@ export default function SigninPage() {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then((user) => {
-        Signin(user);
+      .then(async (user) => {
+        try {
+          const res = await notimp.post("auth/signin", {
+            uid: user.user.uid,
+            signin_type: "DEFULAT_SIGNIN",
+          });
+          Signin(user);
+          localStorage.setItem("ut", res.data);
+        } catch (er) {
+          Signout();
+        }
         setSpinner(false);
       })
       .catch((err) => {

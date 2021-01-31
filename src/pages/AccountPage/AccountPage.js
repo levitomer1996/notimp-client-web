@@ -10,9 +10,7 @@ const AccountPage = () => {
   const { page } = accountPageState;
   const { authState } = useContext(AuthContext);
   const classes = useStyles();
-  useEffect(() => {
-    console.log(accountPageState);
-  }, [accountPageState]);
+
   return (
     <div>
       {!authState.isLogged ? <Redirect to="/" /> : null}

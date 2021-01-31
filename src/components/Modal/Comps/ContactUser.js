@@ -12,12 +12,13 @@ function ContactUser({ params }) {
   const [content, setContent] = useState("");
   const [spinner, setSpinner] = useState(false);
   const { setIsModalOpen } = useContext(ModalContext);
+  const { reciver, owner } = params;
   const handleSumbit = async () => {
     try {
       setSpinner(true);
       await notimp.post(
         "mail/new",
-        { reciver: params.reciver, content, title },
+        { reciver, content, title, sender_display_name: owner },
         {
           headers: {
             //IsTokenExist = token.
@@ -27,7 +28,6 @@ function ContactUser({ params }) {
       );
       setSpinner(false);
       setIsModalOpen();
-      
     } catch (error) {
       setSpinner(false);
     }
@@ -49,7 +49,7 @@ function ContactUser({ params }) {
       >
         <Grid item>
           <Typography>
-            To: <strong>{params.owner}</strong>
+            To: <strong>{owner}</strong>
           </Typography>
         </Grid>
         <Grid item>

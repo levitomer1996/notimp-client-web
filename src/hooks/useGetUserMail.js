@@ -4,6 +4,7 @@ import AuthContext from "../context/AuthContext";
 import getToken from "../api/getToken";
 
 export default () => {
+  const change;
   const { setMail } = useContext(AuthContext);
   const [spinner, setSpinner] = useState(false);
   const getUserMail = async () => {

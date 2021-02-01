@@ -29,15 +29,18 @@ export default function AvatarMenu({ img_url, displayName }) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {redirect.redirect ? <Redirect to={redirect.path} /> : null}
-        <MenuItem onClick={handleClose}>
-          <a href="/profile" style={{ textDecoration: "none", color: "black" }}>
-            Profle
-          </a>
+        {redirect.isRedirect ? <Redirect to={redirect.path} /> : null}
+        <MenuItem
+          onClick={() => {
+            setRedirect({ isRedirect: true, path: "/myprofile" });
+            handleClose();
+          }}
+        >
+          Profle
         </MenuItem>
         <MenuItem
           onClick={() => {
-            setRedirect({ path: "/account", redirect: true });
+            setRedirect({ path: "/account", isRedirect: true });
             handleClose();
           }}
         >

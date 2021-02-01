@@ -3,10 +3,12 @@ import { Grid, Avatar, Typography } from "@material-ui/core";
 import AuthContext from "../../context/AuthContext";
 import { useStyles } from "./Comps/ProfilePage.style";
 import AssetSwiper from "../../components/AssetSwiper/AssetSwiper";
+import { useParams } from "react-router-dom";
 export default function ProfilePage() {
   const { authState } = useContext(AuthContext);
   const { photoURL, displayName } = authState.user;
   const classes = useStyles();
+  const { id } = useParams();
 
   return (
     <Grid container direction="column" justify="center" alignItems="center">

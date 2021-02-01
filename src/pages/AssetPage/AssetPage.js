@@ -51,6 +51,7 @@ const AssetPage = () => {
         <div>
           <Helmet>
             <title>{asset.title}</title>
+            <meta name="description" content={asset.title} />
           </Helmet>
           <img src={imgURL} style={{ paddingBottom: 20 }} />
           <div className={classes.profile_container}>

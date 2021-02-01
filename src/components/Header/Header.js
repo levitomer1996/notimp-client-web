@@ -100,7 +100,7 @@ export default function Header({ isFireBaseInitialzied }) {
           <MenuItem
             button
             onClick={() => {
-              setRedirect({ path: "/profile", isRedirect: true });
+              setRedirect({ path: "/myprofile", isRedirect: true });
             }}
           >
             <Avatar
@@ -189,7 +189,7 @@ export default function Header({ isFireBaseInitialzied }) {
               </Badge>
             </IconButton>
             <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
+              <Badge badgeContent={0} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -199,13 +199,14 @@ export default function Header({ isFireBaseInitialzied }) {
                 displayName={authState.user.displayName}
               />
             ) : (
-              <a
-                href="signin"
-                style={{ textDecoration: "none", color: "white" }}
+              <Button
+                color="inherit"
+                onClick={() => {
+                  setRedirect({ path: "/signin", isRedirect: true });
+                }}
               >
-                {" "}
-                <Button color="inherit">Login</Button>
-              </a>
+                Login
+              </Button>
             )}
           </div>
           <div className={classes.sectionMobile}>

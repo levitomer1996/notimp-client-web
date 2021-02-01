@@ -7,6 +7,7 @@ import AccountPage from "./AccountPage/AccountPage";
 import AddAssetPage from "./AddAssetPage/AddAssetPage";
 import AssetPage from "./AssetPage/AssetPage";
 import IndexPage from "./IndexPage/IndexPage";
+import MyProfile from "./MyProfile/MyProfile";
 import ProfilePage from "./ProfilePage/ProfilePage";
 import SigninPage from "./SigninPage/SigninPage";
 import SignupPage from "./SignupPage/SignupPage";
@@ -26,7 +27,10 @@ export default () => {
       <Route exact path="/signup">
         <SignupPage />
       </Route>
-      <Route exact path="/profile">
+      <Route exact path="/myprofile">
+        <MyProfile />
+      </Route>
+      <Route exact path="/profile/:id">
         <ProfilePage />
       </Route>
       <Route exact path="/addasset">
